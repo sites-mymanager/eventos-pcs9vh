@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wb-allow-ai-styles" content="true">
+    <title>EventOS - The All-in-One Platform for Events & Tournaments</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #ef4444;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --text: #1f2937;
+            --textMuted: #6b7280;
+            --font-heading: Inter;
+            --font-body: Inter;
+        }
+
+        .wb-section {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+            color: var(--text);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--background);
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: #dc2626;
+        }
+
+        .hero {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: var(--textMuted);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--textMuted);
+        }
+
+        .hero-widget {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .widget-title {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .live-badge {
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-time {
+            font-size: 0.875rem;
+            color: var(--textMuted);
+        }
+
+        .event-name {
+            font-weight: 500;
+        }
+
+        .event-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-live {
+            background: #fef2f2;
+            color: var(--accent);
+        }
+
+        .status-upcoming {
+            background: #eff6ff;
+            color: var(--primary);
+        }
+
+        .sports-section {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--textMuted);
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .sport-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .sport-image {
+            width: 100%;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .sport-name {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .filter-tag {
+            display: inline-block;
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            margin: 1rem auto;
+            text-align: center;
+        }
+
+        .events-section {
+            padding: 4rem 2rem;
+            background: var(--surface);
+        }
+
+        .events-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .events-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .event-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .badge-live {
+            background: var(--accent);
+            color: white;
+        }
+
+        .badge-upcoming {
+            background: #eff6ff;
+            color: var(--primary);
+        }
+
+        .event-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--textMuted);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .features-section {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .features-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            background: #f3f4f6;
+            color: var(--textMuted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .feature-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .feature-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-content p {
+            color: var(--textMuted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--textMuted);
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .feature-image {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-mockup {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 100%;
+        }
+
+        .cta-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .mobile-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .phone-mockup {
+            width: 180px;
+            height: 360px;
+            background: white;
+            border-radius: 2rem;
+            padding: 0.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .benefits-section {
+            padding: 4rem 2rem;
+            background: var(--surface);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .benefit-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-description {
+            color: var(--textMuted);
+            font-size: 0.875rem;
+        }
+
+        .how-it-works {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-description {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .faq-section {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding-bottom: 1.5rem;
+            color: var(--textMuted);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #9ca3af;
+            font-size: 1.25rem;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: white;
+        }
+
+        .newsletter {
+            background: #374151;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .newsletter h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .newsletter p {
+            color: #9ca3af;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: #4b5563;
+            color: white;
+        }
+
+        .newsletter-input::placeholder {
+            color: #9ca3af;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .sports-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .sports-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-showcase {
+                flex-wrap: wrap;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .sports-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .phone-mockup {
+                width: 150px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<section class="wb-section">
+    <div class="navbar">
+        <a href="#" class="navbar-brand">EventOS</a>
+        <ul class="navbar-nav">
+            <li><a href="#" class="nav-link">Creators</a></li>
+            <li><a href="#" class="nav-link">Sports</a></li>
+            <li><a href="#" class="nav-link">Watch Live</a></li>
+            <li><a href="#" class="nav-link">Community</a></li>
+            <li><a href="#" class="btn btn-primary">Events</a></li>
+            <li><a href="#" class="nav-link">Tournaments</a></li>
+            <li><a href="#" class="btn btn-accent">Join EventOS</a></li>
+        </ul>
+        <button class="navbar-toggle">☰</button>
+    </div>
+
+    <div class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>The All-in-One Platform for Events & Tournaments</h1>
+                <p>A professional platform for tournaments, showcases, exhibitions, and structured competitions — across sports, performance, and beyond.</p>
+                <p>From martial arts and team sports to dance battles, fitness challenges, and judged events — this platform is built for any competition that demands structure, clarity, and real-time results.</p>
+                <a href="#" class="btn btn-primary">Create an Event or Tournament</a>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Events</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Athletes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">Live</div>
+                        <div class="stat-label">Streaming</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-widget">
+                <div class="widget-header">
+                    <div class="widget-title">Event Schedule</div>
+                    <div class="live-badge">LIVE</div>
+                </div>
+                <div class="event-item">
+                    <div>
+                        <div class="event-time">10:00 AM</div>
+                        <div class="event-name">Taekwondo Showcase</div>
+                    </div>
+                    <div class="event-status status-live">Live</div>
+                </div>
+                <div class="event-item">
+                    <div>
+                        <div class="event-time">2:00 PM</div>
+                        <div class="event-name">Dance Battle Finals</div>
+                    </div>
+                    <div class="event-status status-upcoming">Upcoming</div>
+                </div>
+                <div class="event-item">
+                    <div>
+                        <div class="event-time">5:00 PM</div>
+                        <div class="event-name">Basketball Exhibition</div>
+                    </div>
+                    <div class="event-status status-upcoming">Upcoming</div>
+                </div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <small style="color: var(--textMuted);">26,1,314 watching</small>
+                    <a href="#" class="btn btn-accent" style="margin-left: 1rem; font-size: 0.75rem;">Watch Live</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="wb-section sports-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Choose Your Sport</h2>
+            <p class="section-subtitle">Select a sport to filter events, tournaments, live streams, and community groups.</p>
+        </div>
+        <div class="sports-grid">
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>Taekwondo</text></svg>')"></div>
+                <div class="sport-name">Taekwondo</div>
+            </div>
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>Judo</text></svg>')"></div>
+                <div class="sport-name">Judo</div>
+            </div>
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>Wrestling</text></svg>')"></div>
+                <div class="sport-name">Wrestling</div>
+            </div>
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>Basketball</text></svg>')"></div>
+                <div class="sport-name">Basketball</div>
+            </div>
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>Dance</text></svg>')"></div>
+                <div class="sport-name">Dance</div>
+            </div>
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>Boxing</text></svg>')"></div>
+                <div class="sport-name">Boxing / Kickboxing</div>
+            </div>
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>Volleyball</text></svg>')"></div>
+                <div class="sport-name">Volleyball</div>
+            </div>
+            <div class="sport-card">
+                <div class="sport-image" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 120%22><rect fill=%22%23f3f4f6%22 width=%22200%22 height=%22120%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236b7280%22>?</text></svg>')"></div>
+                <div class="sport-name">Other</div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <div class="filter-tag">Filtering by: Judo ×</div>
+        </div>
+    </div>
+</section>
+
+<section class="wb-section events-section">
+    <div class="container">
+        <div class="events-header">
+            <div>
+                <h2 class="section-title">Upcoming & Key Events</h2>
+                <p class="section-subtitle">Where competition happens — regardless of discipline. Discover tournaments, showcases, exhibitions, and live competitions across sports, performance, and emerging formats.</p>
+            </div>
+            <div>
+                <button class="btn btn-primary">Filters ▼</button>
+            </div>
+        </div>
+        
+        <div class="events-filters">
+            <button class="filter-btn active">All Events</button>
+            <button class="filter-btn">Youth</button>
+            <button class="filter-btn">Adult</button>
+            <button class="filter-btn">Pro</button>
+            <button class="filter-btn">Open</button>
+            <button class="filter-btn">Elite</button>
+            <button class="filter-btn">Mixed</button>
+            <button class="filter-btn">Games</button>
+            <button class="filter-btn">Battle</button>
+        </div>
+
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-badge badge-live">LIVE</div>
+                <h3 class="event-title">National Taekwondo Championship 2024</h3>
+                <div class="event-meta">
+                    <span>📅 Jan 15, 2024 • 9:00 AM</span>
+                </div>
+                <div class="event-meta">
+                    <span>📍 Olympic Sports Center, LA</span>
+                </div>
+                <div class="event-meta">
+                    <span>👥 256 participants</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.875rem;">View Event</a>
+                    <a href="#" class="btn btn-accent" style="font-size: 0.875rem; margin-left: 0.5rem;">Watch</a>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-badge badge-upcoming">Upcoming</div>
+                <h3 class="event-title">Dance Battle: Street vs Studio</h3>
+                <div class="event-meta">
+                    <span>📅 Jan 22, 2024 • 7:00 PM</span>
+                </div>
+                <div class="event-meta">
+                    <span>📍 Downtown Arts Center</span>
+                </div>
+                <div class="event-meta">
+                    <span>👥 32 participants</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.875rem;">View Event</a>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-badge badge-upcoming">Upcoming</div>
+                <h3 class="event-title">Junior Basketball Exhibition</h3>
+                <div class="event-meta">
+                    <span>📅 Jan 25, 2024 • 2:00 PM</span>
+                </div>
+                <div class="event-meta">
+                    <span>📍 Sports Arena</span>
+                </div>
+                <div class="event-meta">
+                    <span>👥 128 participants</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.875rem;">View Event</a>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-badge badge-upcoming">Upcoming</div>
+                <h3 class="event-title">Regional Judo Open</h3>
+                <div class="event-meta">
+                    <span>📅 Jan 18, 2024 • 10:00 AM</span>
+                </div>
+                <div class="event-meta">
+                    <span>📍 Community Arts Hub</span>
+                </div>
+                <div class="event-meta">
+                    <span>👥 64 participants</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.875rem;">View Event</a>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-badge badge-upcoming">Upcoming</div>
+                <h3 class="event-title">Boxing Showcase Night</h3>
+                <div class="event-meta">
+                    <span>📅 Jan 20, 2024 • 8:00 PM</span>
+                </div>
+                <div class="event-meta">
+                    <span>📍 Victory Sports Hall</span>
+                </div>
+                <div class="event-meta">
+                    <span>👥 16 participants</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.875rem;">View Event</a>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-badge badge-upcoming">Upcoming</div>
+                <h3 class="event-title">Volleyball Beach Tournament</h3>
+                <div class="event-meta">
+                    <span>📅 Jan 28, 2024 • 11:00 AM</span>
+                </div>
+                <div class="event-meta">
+                    <span>📍 Seaside Courts</span>
+                </div>
+                <div class="event-meta">
+                    <span>👥 48 participants</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.875rem;">View Event</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="#" class="btn btn-primary">View Full Calendar</a>
+        </div>
+    </div>
+</section>
+
+<section class="wb-section features-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Features</h2>
+            <p class="section-subtitle">The All-in-One Platform for Events & Tournaments</p
